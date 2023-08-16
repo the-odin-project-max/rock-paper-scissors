@@ -1,4 +1,4 @@
-const LOSING_TEXT_OUTPUT="You lose!";
+const LOSING_TEXT_OUTPUT="You lose this one!";
 
 function getComputerChoice() {
 	const choices = ['rock', 'paper', 'scissors'];
@@ -36,6 +36,8 @@ function game() {
 		// Ask for player input
 		let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
 		let result = playRound(playerSelection, getComputerChoice());
+
+		console.info(result);
 
 		if (result === LOSING_TEXT_OUTPUT){
 			computerScore++;
