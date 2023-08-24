@@ -70,30 +70,3 @@ document.querySelectorAll('.controls .game-controls button').forEach(choice => {
 });
 
 document.querySelector('#reset').addEventListener('click', resetGame);
-
-
-
-// function game() {
-// 	let playerScore = 0;
-// 	let computerScore = 0;
-
-// 	for(let i = 0; i < 5; i++){
-// 		console.log(`\nPlayer turn: ${i +1}`);
-
-// 		// Ask for player input
-// 		let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
-// 		let result = playRound(playerSelection, getComputerChoice());
-
-// 		console.info(result);
-
-
-// 	}
-
-// 	if(playerScore > computerScore){
-// 		console.log("You save humans against machines.")
-// 	} else {
-// 		console.log("You lost and because of you terminator is going to become reality.")
-// 	}
-// }
-
-// game();
