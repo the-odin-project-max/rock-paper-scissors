@@ -1,4 +1,4 @@
-const LOSING_TEXT_OUTPUT="You lose this one!";
+const LOSING_TEXT_OUTPUT = "You lose this one!";
 
 function getComputerChoice() {
 	const choices = ['rock', 'paper', 'scissors'];
@@ -9,8 +9,7 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
 	while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-		alert("Please enter a valid choice.");
-		playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
+		console.log("Please enter a valid choice.");
 	}
 
 	// Compare choices
@@ -26,31 +25,48 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-function game() {
-	let playerScore = 0;
-	let computerScore = 0;
+function resetGame() {
+	computerScore = 0;
+	playerScore = 0;
+	document.querySelector('.display > .player-choice').textContent = "Waiting for your choice...";
+	document.querySelector('.display > .computer-choice').textContent = "Computing his choice...";
+	document.querySelector('.display > .result').textContent = "Don't know yet !";
+	document.querySelector('.display > .score > .player-score').textContent = "0";
+	document.querySelector('.display > .score > .computer-score').textContent = "0";
+	console.clear();
+}
 
-	for(let i = 0; i < 5; i++){
-		console.log(`\nPlayer turn: ${i +1}`);
+let computerScore = 0;
+let playerScore = 0;
 
-		// Ask for player input
-		let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
-		let result = playRound(playerSelection, getComputerChoice());
-
-		console.info(result);
-
-		if (result === LOSING_TEXT_OUTPUT){
+document.querySelectorAll('.controls .game-controls button').forEach(choice => {
+	choice.addEventListener('click', () => {
+		const playerSelection = choice.id.toLowerCase();
+		const computerSelection = getComputerChoice();
+		const result = playRound(playerSelection, computerSelection);
+		if (result === LOSING_TEXT_OUTPUT) {
 			computerScore++;
 		} else {
 			playerScore++;
 		}
-	}
+		// Update displays
+		document.querySelector('.display > .player-choice').textContent = playerSelection;
+		document.querySelector('.display > .computer-choice').textContent = computerSelection;
+		document.querySelector('.display > .result').textContent = result;
+		document.querySelector('.display > .score > .player-score').textContent = playerScore;
+		document.querySelector('.display > .score > .computer-score').textContent = computerScore;
 
-	if(playerScore > computerScore){
-		console.log("You save humans against machines.")
-	} else {
-		console.log("You lost and because of you terminator is going to become reality.")
-	}
-}
+		if (playerScore === 5 || computerScore === 5) {
 
-game();
+			if (playerScore > computerScore) {
+				alert("You save humans against machines.")
+				resetGame();
+			} else {
+				alert("You lost and because of you terminator is going to become reality.")
+				resetGame();
+			}
+		}
+	});
+});
+
+document.querySelector('#reset').addEventListener('click', resetGame);
